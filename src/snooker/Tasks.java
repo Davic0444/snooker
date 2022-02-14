@@ -60,34 +60,32 @@ public class Tasks {
 	}
 
 	public void statistics() {
-		Integer china = 0;
-		Integer anglia = 0;
-		Integer wales = 0;
-		Integer scottish = 0;
-		for (Entity entity : snooker) {
-			if (entity.getCountry().equalsIgnoreCase("kína")) {
-				china++;
+		List<String> nationList = new ArrayList<String>();
+		for (int i = 0; i < snooker.size(); i++) {
+			boolean isIn = false;
+			for (int j = 0; j < nationList.size(); j++) {
+				if (snooker.get(i).getCountry().equalsIgnoreCase(nationList.get(j))){
+					isIn = true;
+				}
+			}
+			if (isIn == false){
+				nationList.add(snooker.get(i).getCountry());
 			}
 		}
-		System.out.println("Kínai - "+china+" fő");
-		for (Entity entity : snooker) {
-			if (entity.getCountry().equalsIgnoreCase("anglia")) {
-				anglia++;
+
+		int[] listHelp = new int[nationList.size()];
+		for (int i = 0; i < snooker.size(); i++) {
+			for (int j = 0; j < nationList.size(); j++) {
+				if (snooker.get(i).getCountry().equalsIgnoreCase(nationList.get(j))) {
+					listHelp[j]++;
+				}
 			}
 		}
-		System.out.println("Anglia - "+anglia+" fő");
-		for (Entity entity : snooker) {
-			if (entity.getCountry().equalsIgnoreCase("wales")) {
-				wales++;
+		for (int i = 0; i < listHelp.length; i++) {
+			if (listHelp[i] > 4){
+				System.out.println(nationList.get(i)+" - "+ listHelp[i]);
 			}
 		}
-		System.out.println("Wales - "+wales+" fő");
-		for (Entity entity : snooker) {
-			if (entity.getCountry().equalsIgnoreCase("skócia")) {
-				scottish++;
-			}
-		}
-		System.out.println("Skócia - "+scottish+" fő");
 	}
 	
 }
